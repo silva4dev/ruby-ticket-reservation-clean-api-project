@@ -3,8 +3,6 @@
 module Common
   module Domain
     class Entity
-      private_class_method :new
-
       def to_hash
         raise NotImplementedError
       end
