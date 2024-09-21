@@ -3,6 +3,10 @@
 module Common
   module Domain
     class ValueObject
+      # A Value Object is a class that represents a value that is important to the domain,
+      # but that has no identity of its own. In other words, a Value Object is an object
+      # that is defined by its attributes, rather than being defined by a unique identity.
+
       attr_reader :value
 
       def initialize(value)
