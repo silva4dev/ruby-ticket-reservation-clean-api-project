@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../value_object'
+require_relative '../errors/invalid_cpf_error'
 
 module Common
   module Domain
@@ -17,19 +18,19 @@ module Common
 
         def validate
           if @value.length != 11
-            raise InvalidCpfError.new("CPF must have 11 digits, but has #{@value.length} digits")
+            raise Errors::InvalidCpfError.new("CPF must have 11 digits, but has #{@value.length} digits")
           end
 
           all_digits_equals = @value =~ /^(\d)\1{10}$/
           if all_digits_equals
-            raise InvalidCpfError.new('CPF must have at least two different digits')
+            raise Errors::InvalidCpfError.new('CPF must have at least two different digits')
           end
 
           first_digit = calculate_digit(@value[0..8], 10)
           second_digit = calculate_digit(@value[0..9], 11)
 
           if first_digit != @value[9].to_i || second_digit != @value[10].to_i
-            raise InvalidCpfError.new('CPF is invalid')
+            raise Errors::InvalidCpfError.new('CPF is invalid')
           end
         end
 
@@ -41,12 +42,6 @@ module Common
 
           digit = 11 - (sum % 11)
           digit > 9 ? 0 : digit
-        end
-      end
-
-      class InvalidCpfError < StandardError
-        def initialize(message)
-          super(message)
         end
       end
     end
