@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require_relative '../../../common/domain/aggregate_root'
-require_relative '../../../common/domain/value_objects/name_vo'
 require_relative '../../../common/domain/value_objects/cpf_vo'
 
 module Events
@@ -14,13 +13,13 @@ module Events
           super()
           @id = id
           @cpf = Common::Domain::ValueObjects::Cpf.new(cpf)
-          @name = Common::Domain::ValueObjects::Name.new(name)
+          @name = name
         end
 
         def self.create(command)
           new(
             cpf: Common::Domain::ValueObjects::Cpf.new(command[:cpf]),
-            name: Common::Domain::ValueObjects::Name.new(command[:name])
+            name: command[:name]
           )
         end
 
