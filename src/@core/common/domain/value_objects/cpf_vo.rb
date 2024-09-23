@@ -10,7 +10,7 @@ module Common
         attr_reader :value
 
         def initialize(value)
-          @value = value.gsub(/\D/, '')
+          @value = value.to_s.gsub(/\D/, '')
           validate
         end
 
