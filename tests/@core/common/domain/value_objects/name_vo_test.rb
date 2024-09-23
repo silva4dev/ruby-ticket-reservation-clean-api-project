@@ -8,7 +8,7 @@ class NameVoTest < Minitest::Test
     @sut = Common::Domain::ValueObjects::Name.new('John Doe')
   end
 
-  def test_create_new_name_valid
+  def test_create_new_name_vo
     assert_equal @sut.value, 'John Doe'
   end
 end
