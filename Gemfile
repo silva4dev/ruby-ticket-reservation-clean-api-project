@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+gem 'uuid'
+
 group :development, :test do
   gem 'minitest'
   gem 'rubocop'
