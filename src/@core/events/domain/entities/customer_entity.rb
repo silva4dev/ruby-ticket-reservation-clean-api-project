@@ -8,7 +8,7 @@ module Events
   module Domain
     module Entities
       class Customer < Common::Domain::AggregateRoot
-        attr_accessor :id, :cpf, :name
+        attr_accessor :cpf, :name
 
         def initialize(id: nil, cpf:, name:)
           super()
