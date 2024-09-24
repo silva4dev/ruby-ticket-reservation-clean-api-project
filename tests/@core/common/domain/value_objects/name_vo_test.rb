@@ -3,7 +3,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/common/domain/value_objects/name_vo'
 
-class NameVoTest < Minitest::Test
+class NameTest < Minitest::Test
   def setup
     @sut = Common::Domain::ValueObjects::Name.new('John Doe')
   end
