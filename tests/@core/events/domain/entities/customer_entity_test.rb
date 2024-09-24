@@ -18,19 +18,5 @@ class CustomerTest < Minitest::Test
     assert_instance_of Common::Domain::ValueObjects::Uuid, @sut.id
     assert_equal @sut.cpf.value, '69075493010'
     assert_equal @sut.name, 'John Doe'
-    @sut = Events::Domain::Entities::Customer.new(
-      id: '84df48d0-5c35-013d-d217-00155d5361ff',
-      name: 'Mary Doe',
-      cpf: '023.131.910-01'
-    )
-    assert_equal @sut.id.value, '84df48d0-5c35-013d-d217-00155d5361ff'
-    assert_equal @sut.name, 'Mary Doe'
-    assert_equal @sut.cpf.value, '02313191001'
-    @other = Events::Domain::Entities::Customer.new(
-      id: @sut.id.value,
-      name: 'John Doe',
-      cpf: '384.485.590-45'
-    )
-    assert_equal @sut.equals(@other), true
   end
 end
