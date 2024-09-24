@@ -17,6 +17,7 @@ class EventTest < Minitest::Test
 
   def test_create_new_event
     assert_instance_of Events::Domain::Entities::Event, @sut
+    refute_nil @sut.id
     assert_equal 'Test Event', @sut.name
     assert_equal 'A description of the test event', @sut.description
     assert_instance_of DateTime, @sut.date
