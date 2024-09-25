@@ -4,6 +4,8 @@ require 'date'
 
 require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/event_entity'
+require_relative '../../../../../src/@core/events/domain/entities/event_section_entity'
+require_relative '../../../../../src/@core/events/domain/entities/event_spot_entity'
 
 class EventTest < Minitest::Test
   def setup
@@ -13,6 +15,18 @@ class EventTest < Minitest::Test
       date: DateTime.now,
       partner_id: '123e4567-e89b-12d3-a456-426614174000'
     })
+
+    @section = Events::Domain::Entities::EventSection.create({
+      name: 'VIP Section',
+      description: 'Exclusive access to the VIP area',
+      total_spots: 100,
+      price: 150.50
+    })
+
+    @spot = Events::Domain::Entities::EventSpot.create()
+
+    @sut.sections.add(@section)
+    @section.spots.add(@spot)
   end
 
   def test_create_new_event
