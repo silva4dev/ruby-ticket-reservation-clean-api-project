@@ -25,7 +25,6 @@ module Events
           )
         end
 
-        # Convert EventSpot to hash
         def to_hash
           {
             id: @id.value,
