@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 require_relative '../../../common/domain/aggregate_root'
 require_relative '../../../common/domain/value_objects/uuid_vo'
 
@@ -7,9 +9,9 @@ module Events
   module Domain
     module Entities
       class EventSection < Common::Domain::AggregateRoot
-        attr_accessor :name, :description, :is_published, :total_spots, :total_spots_reserved, :price
+        attr_accessor :name, :description, :is_published, :total_spots, :total_spots_reserved, :price, :spots
 
-        def initialize(id: nil, name:, description:, is_published:, total_spots:, total_spots_reserved:, price:)
+        def initialize(id: nil, name:, description:, is_published:, total_spots:, total_spots_reserved:, price:, spots: Set.new)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
@@ -18,6 +20,7 @@ module Events
           @total_spots = total_spots
           @total_spots_reserved = total_spots_reserved
           @price = price
+          @spots = spots || Set.new
         end
 
         def self.create(command)
@@ -27,7 +30,8 @@ module Events
             is_published: false,
             total_spots: command[:total_spots],
             total_spots_reserved: 0,
-            price: command[:price]
+            price: command[:price],
+            spots: command[:spots] || Set.new
           )
         end
 
@@ -39,7 +43,8 @@ module Events
             is_published: @is_published,
             total_spots: @total_spots,
             total_spots_reserved: @total_spots_reserved,
-            price: @price
+            price: @price,
+            spots: @spots.map(&:to_hash)
           }
         end
       end
