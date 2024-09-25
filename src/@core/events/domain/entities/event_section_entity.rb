@@ -11,7 +11,7 @@ module Events
       class EventSection < Common::Domain::AggregateRoot
         attr_accessor :name, :description, :is_published, :total_spots, :total_spots_reserved, :price, :spots
 
-        def initialize(id: nil, name:, description:, is_published:, total_spots:, total_spots_reserved:, price:, spots: Set.new)
+        def initialize(id: nil, name:, description: nil, is_published:, total_spots:, total_spots_reserved:, price:, spots: Set.new)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
@@ -26,12 +26,12 @@ module Events
         def self.create(command)
           new(
             name: command[:name],
-            description: command[:description] || nil,
+            description: command[:description],
             is_published: false,
             total_spots: command[:total_spots],
             total_spots_reserved: 0,
             price: command[:price],
-            spots: command[:spots] || Set.new
+            spots: command[:spots]
           )
         end
 
