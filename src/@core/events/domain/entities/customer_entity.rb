@@ -19,7 +19,7 @@ module Events
 
         def self.create(command)
           new(
-            cpf: Common::Domain::ValueObjects::Cpf.new(command[:cpf]),
+            cpf: command[:cpf],
             name: command[:name]
           )
         end
