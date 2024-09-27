@@ -33,7 +33,7 @@ module Events
             is_published: false,
             total_spots: 0,
             total_spots_reserved: 0,
-            partner_id: Common::Domain::ValueObjects::Uuid.new(command[:partner_id]),
+            partner_id: command[:partner_id],
             sections: command[:sections]
           )
         end
