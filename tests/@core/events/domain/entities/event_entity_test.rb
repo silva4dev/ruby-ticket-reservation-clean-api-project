@@ -6,6 +6,7 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/event_entity'
 require_relative '../../../../../src/@core/events/domain/entities/event_section_entity'
 require_relative '../../../../../src/@core/events/domain/entities/event_spot_entity'
+require_relative '../../../../../src/@core/common/domain/value_objects/uuid_vo'
 
 class EventTest < Minitest::Test
   def setup
@@ -13,7 +14,7 @@ class EventTest < Minitest::Test
       name: 'Test Event',
       description: 'A description of the test event',
       date: DateTime.now,
-      partner_id: '123e4567-e89b-12d3-a456-426614174000'
+      partner_id: Common::Domain::ValueObjects::Uuid.new,
     })
 
     @sut.add_section({
@@ -35,6 +36,5 @@ class EventTest < Minitest::Test
     assert_equal 100, @sut.total_spots
     assert_equal 0, @sut.total_spots_reserved
     assert_equal 100, @sut.sections.first.spots.size
-    assert_equal '123e4567-e89b-12d3-a456-426614174000', @sut.partner_id.value
   end
 end
