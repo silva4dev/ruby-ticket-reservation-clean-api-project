@@ -16,16 +16,12 @@ class EventTest < Minitest::Test
       partner_id: '123e4567-e89b-12d3-a456-426614174000'
     })
 
-    @section = Events::Domain::Entities::EventSection.create({
+    @sut.add_section({
       name: 'VIP Section',
       description: 'Exclusive access to the VIP area',
       total_spots: 100,
       price: 150.50
     })
-
-    @spot = Events::Domain::Entities::EventSpot.create()
-
-    @sut.add_section(@section)
   end
 
   def test_create_new_event
@@ -38,6 +34,7 @@ class EventTest < Minitest::Test
     assert_equal false, @sut.is_published
     assert_equal 100, @sut.total_spots
     assert_equal 0, @sut.total_spots_reserved
+    assert_equal 100, @sut.sections.first.spots.size
     assert_equal '123e4567-e89b-12d3-a456-426614174000', @sut.partner_id.value
   end
 end
