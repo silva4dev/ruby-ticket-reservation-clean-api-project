@@ -2,6 +2,7 @@
 
 require_relative '../../../common/domain/aggregate_root'
 require_relative '../../../common/domain/value_objects/uuid_vo'
+require_relative './event_entity'
 
 module Events
   module Domain
@@ -21,9 +22,18 @@ module Events
           )
         end
 
+        def initEvent(command)
+          Event.create({
+            name: command[:name],
+            description: command[:description],
+            date: command[:date],
+            partner_id: @id,
+          })
+        end
+
         def to_hash
           {
-            id: @id,
+            id: @id.value,
             name: @name
           }
         end
