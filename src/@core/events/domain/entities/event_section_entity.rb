@@ -4,6 +4,7 @@ require 'set'
 
 require_relative '../../../common/domain/aggregate_root'
 require_relative '../../../common/domain/value_objects/uuid_vo'
+require_relative '../entities/event_spot_entity'
 
 module Events
   module Domain
@@ -24,7 +25,7 @@ module Events
         end
 
         def self.create(command)
-          new(
+          section = new(
             name: command[:name],
             description: command[:description],
             is_published: false,
@@ -33,6 +34,8 @@ module Events
             price: command[:price],
             spots: command[:spots]
           )
+          section.send(:init_spots)
+          section
         end
 
         def to_hash
@@ -46,6 +49,14 @@ module Events
             price: @price,
             spots: @spots.map(&:to_hash)
           }
+        end
+
+        private
+
+        def init_spots
+          @total_spots.times do
+            @spots.add(EventSpot.create)
+          end
         end
       end
     end
