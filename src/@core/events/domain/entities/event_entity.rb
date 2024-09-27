@@ -40,14 +40,13 @@ module Events
 
         def add_section(command)
           section = EventSection.create({
-            id: command.id,
-            name: command.name,
-            description: command.description,
-            is_published: command.is_published,
-            total_spots: command.total_spots,
-            total_spots_reserved: command.total_spots_reserved,
-            price: command.price,
-            spots: command.spots
+            name: command[:name],
+            description: command[:description],
+            is_published: command[:is_published],
+            total_spots: command[:total_spots],
+            total_spots_reserved: command[:total_spots_reserved],
+            price: command[:price],
+            spots: command[:spots]
           })
           @sections.add(section)
           @total_spots += section.total_spots
