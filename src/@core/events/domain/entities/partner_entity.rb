@@ -8,7 +8,7 @@ module Events
   module Domain
     module Entities
       class Partner < Common::Domain::AggregateRoot
-        attr_accessor :name
+        attr_reader :name
 
         def initialize(id: nil, name:)
           super()
@@ -29,6 +29,10 @@ module Events
             date: command[:date],
             partner_id: @id,
           })
+        end
+
+        def change_name(name)
+          @name = name
         end
 
         def to_hash

@@ -10,14 +10,14 @@ module Events
   module Domain
     module Entities
       class EventSection < Common::Domain::AggregateRoot
-        attr_accessor :name, :description, :is_published, :total_spots, :total_spots_reserved, :price, :spots
+        attr_reader :name, :description, :is_published, :total_spots, :total_spots_reserved, :price, :spots
 
-        def initialize(id: nil, name:, description: nil, is_published:, total_spots:, total_spots_reserved:, price:, spots: Set.new)
+        def initialize(id: nil, name:, description: nil, is_published: false, total_spots:, total_spots_reserved:, price:, spots: Set.new)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
           @description = description || nil
-          @is_published = is_published
+          @is_published = is_published || false
           @total_spots = total_spots
           @total_spots_reserved = total_spots_reserved
           @price = price
@@ -49,6 +49,31 @@ module Events
             price: @price,
             spots: @spots.map(&:to_hash)
           }
+        end
+
+        def change_name(name)
+          @name = name
+        end
+
+        def change_description(description)
+          @description = description
+        end
+
+        def change_price(price)
+          @price = price
+        end
+
+        def publish_all
+          self.publish
+          @spots.each(&:publish)
+        end
+
+        def publish
+          @is_published = true
+        end
+
+        def unpublish
+          @is_published = false
         end
 
         private
