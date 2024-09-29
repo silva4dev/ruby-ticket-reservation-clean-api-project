@@ -10,15 +10,15 @@ module Events
   module Domain
     module Entities
       class Event < Common::Domain::AggregateRoot
-        attr_accessor :name, :description, :date, :is_published, :total_spots, :total_spots_reserved, :partner_id, :sections
+        attr_reader :name, :description, :date, :is_published, :total_spots, :total_spots_reserved, :partner_id, :sections
 
-        def initialize(id: nil, name:, description: nil, date:, is_published:, total_spots:, total_spots_reserved:, partner_id:, sections: Set.new)
+        def initialize(id: nil, name:, description: nil, date:, is_published: false, total_spots:, total_spots_reserved:, partner_id:, sections: Set.new)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
           @description = description || nil
           @date = date
-          @is_published = is_published
+          @is_published = is_published || false
           @total_spots = total_spots
           @total_spots_reserved = total_spots_reserved
           @partner_id = partner_id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(partner_id) : partner_id
@@ -36,6 +36,31 @@ module Events
             partner_id: command[:partner_id],
             sections: command[:sections]
           )
+        end
+
+        def change_name(name)
+          @name = name
+        end
+
+        def change_description(description)
+          @description = description
+        end
+
+        def change_date(date)
+          @data = date
+        end
+
+        def publish_all
+          self.publish
+          @sections.each(&:publish_all)
+        end
+
+        def publish
+          @is_published = true
+        end
+
+        def unpublish
+          @is_published = false
         end
 
         def add_section(command)
