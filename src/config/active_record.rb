@@ -5,9 +5,10 @@ require 'mysql2'
 require 'yaml'
 require 'logger'
 
-config_path = File.join(__dir__, "database.yml")
+environment = ENV['ENVIRONMENT'].nil? ? :development : ENV['ENVIRONMENT'].to_sym
+config_path = File.join(__dir__, 'database.yml')
 ActiveRecord::Base.configurations = YAML.load_file(config_path)
-ActiveRecord::Base.establish_connection(:development)
+ActiveRecord::Base.establish_connection(environment)
 
 logger = Logger.new(STDOUT)
 logger.formatter = proc do |severity, datetime, progname, msg|
