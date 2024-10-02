@@ -23,27 +23,27 @@ class AggregateRootTest < Minitest::Test
   end
 
   def test_initialization
-    assert_instance_of TestAggregateRoot, @aggregate1, "Should create an instance of TestAggregateRoot"
+    assert_instance_of TestAggregateRoot, @aggregate1, 'Should create an instance of TestAggregateRoot'
   end
 
   def test_equals_with_same_id
-    assert @aggregate1.equals(@aggregate2), "AggregateRoots with the same ID should be equal"
+    assert @aggregate1.equals(@aggregate2), 'AggregateRoots with the same ID should be equal'
   end
 
   def test_equals_with_different_id
-    refute @aggregate1.equals(@aggregate3), "AggregateRoots with different IDs should not be equal"
+    refute @aggregate1.equals(@aggregate3), 'AggregateRoots with different IDs should not be equal'
   end
 
   def test_equals_with_nil
-    refute @aggregate1.equals(nil), "AggregateRoot should not equal nil"
+    refute @aggregate1.equals(nil), 'AggregateRoot should not equal nil'
   end
 
   def test_equals_with_different_class
-    refute @aggregate1.equals(Object.new), "AggregateRoot should not equal an object of a different class"
+    refute @aggregate1.equals(Object.new), 'AggregateRoot should not equal an object of a different class'
   end
 
   def test_to_hash
     expected_hash = { id: 1 }
-    assert_equal expected_hash, @aggregate1.to_hash, "to_hash should return a hash representation of the aggregate"
+    assert_equal expected_hash, @aggregate1.to_hash, 'to_hash should return a hash representation of the aggregate'
   end
 end
