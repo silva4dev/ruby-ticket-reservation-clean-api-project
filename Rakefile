@@ -5,6 +5,9 @@ require_relative './src/config/active_record'
 namespace :db do
   desc 'Migrate the database (options: VERSION=x).'
   task :migrate do
+    environment = ENV['ENVIRONMENT'] || 'development'
+    config = ActiveRecord::Base.configurations.configs_for(env_name: environment).first
+    ActiveRecord::Base.establish_connection(config.configuration_hash)
     migrations_paths = './src/database/migrate'
     ActiveRecord::Migration.verbose = true
     version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
@@ -26,6 +29,51 @@ namespace :db do
   desc 'Gives you a timestamp for your migration file name.'
   task :timestamp do
     puts DateTime.now.strftime('%Y%m%d%H%M%S')
+  end
+
+  desc 'Create the database based on config/database.yml'
+  task :create do
+    environment = ENV['ENVIRONMENT'] || 'development'
+    config = ActiveRecord::Base.configurations.configs_for(env_name: environment).first
+    if config && config.configuration_hash[:database]
+      begin
+        ActiveRecord::Base.establish_connection(config.configuration_hash.merge('database' => nil))
+        ActiveRecord::Base.connection.create_database(config.configuration_hash[:database])
+        puts "Database '#{config.configuration_hash[:database]}' created successfully."
+      rescue ActiveRecord::StatementInvalid => e
+        puts "Database creation failed: #{e.message}"
+      end
+    else
+      puts "Database configuration not found for environment '#{environment}'!"
+    end
+  end
+
+  desc 'Drop the database based on config/database.yml'
+  task :drop do
+    environment = ENV['ENVIRONMENT'] || 'development'
+    config = ActiveRecord::Base.configurations.configs_for(env_name: environment).first
+    if config && config.configuration_hash[:database]
+      begin
+        ActiveRecord::Base.establish_connection(config.configuration_hash.merge('database' => nil))
+        ActiveRecord::Base.connection.drop_database(config.configuration_hash[:database])
+        puts "Database '#{config.configuration_hash[:database]}' dropped successfully."
+      rescue ActiveRecord::StatementInvalid => e
+        puts "Database drop failed: #{e.message}"
+      end
+    else
+      puts "Database configuration not found for environment '#{environment}'!"
+    end
+  end
+
+  desc 'Setup the database: drop, create, migrate and seed.'
+  task :setup do
+    environment = ENV['ENVIRONMENT'] || 'development'
+    config = ActiveRecord::Base.configurations.configs_for(env_name: environment).first
+    ActiveRecord::Base.establish_connection(config.configuration_hash)
+    Rake::Task["db:drop"].invoke
+    Rake::Task["db:create"].invoke
+    Rake::Task["db:migrate"].invoke
+    puts "Database setup complete."
   end
 
   namespace :schema do
