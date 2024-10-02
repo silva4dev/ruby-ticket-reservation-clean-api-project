@@ -8,7 +8,7 @@ require_relative '../../../../../src/@core/events/domain/entities/event_section_
 require_relative '../../../../../src/@core/events/domain/entities/event_spot_entity'
 require_relative '../../../../../src/@core/common/domain/value_objects/uuid_vo'
 
-class EventTest < Minitest::Test
+class EventEntityTest < Minitest::Test
   def setup
     @sut = Events::Domain::Entities::Event.create(
       name: 'Test Event',

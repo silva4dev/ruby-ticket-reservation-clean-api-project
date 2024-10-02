@@ -3,7 +3,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/event_spot_entity'
 
-class EventSpotTest < Minitest::Test
+class EventSpotEntityTest < Minitest::Test
   def setup
     @sut = Events::Domain::Entities::EventSpot.create
   end

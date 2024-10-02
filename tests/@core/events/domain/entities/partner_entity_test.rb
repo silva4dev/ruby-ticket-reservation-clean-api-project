@@ -6,7 +6,7 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/partner_entity'
 require_relative '../../../../../src/@core/events/domain/entities/event_entity'
 
-class PartnerTest < Minitest::Test
+class PartnerEntityTest < Minitest::Test
   def setup
     @sut = Events::Domain::Entities::Partner.create({
       name: 'John Doe'

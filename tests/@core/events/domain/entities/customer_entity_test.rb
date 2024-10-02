@@ -4,7 +4,7 @@ require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/customer_entity'
 require_relative '../../../../../src/@core/common/domain/value_objects/uuid_vo'
 
-class CustomerTest < Minitest::Test
+class CustomerEntityTest < Minitest::Test
   def setup
     @sut = Events::Domain::Entities::Customer.create({
       name: 'John Doe',

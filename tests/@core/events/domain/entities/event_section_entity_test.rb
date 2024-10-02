@@ -3,7 +3,7 @@
 require_relative '../../../../test_helper'
 require_relative '../../../../../src/@core/events/domain/entities/event_section_entity'
 
-class EventSectionTest < Minitest::Test
+class EventSectionEntityTest < Minitest::Test
   def setup
     @sut = Events::Domain::Entities::EventSection.create({
       name: 'VIP Section',
