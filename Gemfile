@@ -12,4 +12,5 @@ group :development, :test do
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rspec'
+  gem 'database_cleaner-active_record'
 end
