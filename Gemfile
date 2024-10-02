@@ -2,15 +2,14 @@
 
 source 'https://rubygems.org'
 
-gem 'uuid'
 gem 'activerecord', '7.1.0'
 gem 'mysql2'
 gem 'rake'
+gem 'uuid'
 
 group :development, :test do
+  gem 'database_cleaner-active_record'
   gem 'minitest'
   gem 'rubocop'
   gem 'rubocop-performance'
-  gem 'rubocop-rspec'
-  gem 'database_cleaner-active_record'
 end
