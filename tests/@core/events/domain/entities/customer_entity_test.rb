@@ -16,7 +16,7 @@ class CustomerEntityTest < Minitest::Test
     assert_instance_of Events::Domain::Entities::Customer, @sut
     refute_nil @sut.id
     assert_instance_of Common::Domain::ValueObjects::Uuid, @sut.id
-    assert_equal @sut.cpf.value, '69075493010'
-    assert_equal @sut.name, 'John Doe'
+    assert_equal '69075493010', @sut.cpf.value
+    assert_equal 'John Doe', @sut.name
   end
 end

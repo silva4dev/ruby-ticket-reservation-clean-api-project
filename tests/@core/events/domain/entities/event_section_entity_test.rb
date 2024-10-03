@@ -18,10 +18,10 @@ class EventSectionEntityTest < Minitest::Test
     assert_equal 'VIP Section', @sut.name
     refute_nil @sut.id
     assert_equal 'Exclusive access to the VIP area', @sut.description
-    assert_equal false, @sut.is_published
+    refute @sut.is_published
     assert_equal 100, @sut.total_spots
     assert_equal 0, @sut.total_spots_reserved
-    assert_equal 150.50, @sut.price
+    assert_in_delta(150.50, @sut.price)
     assert_instance_of Common::Domain::ValueObjects::Uuid, @sut.instance_variable_get(:@id)
   end
 end

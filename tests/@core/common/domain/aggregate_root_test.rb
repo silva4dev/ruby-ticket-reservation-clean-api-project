@@ -8,6 +8,7 @@ class AggregateRootTest < Minitest::Test
     attr_reader :id
 
     def initialize(id)
+      super()
       @id = id
     end
 
@@ -44,6 +45,7 @@ class AggregateRootTest < Minitest::Test
 
   def test_to_hash
     expected_hash = { id: 1 }
+
     assert_equal expected_hash, @aggregate1.to_hash, 'to_hash should return a hash representation of the aggregate'
   end
 end

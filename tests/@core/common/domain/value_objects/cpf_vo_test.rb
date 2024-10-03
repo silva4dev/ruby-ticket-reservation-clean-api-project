@@ -9,6 +9,6 @@ class CpfTest < Minitest::Test
   end
 
   def test_create_new_cpf_vo
-    assert_equal @sut.value, '49190316029'
+    assert_equal '49190316029', @sut.value
   end
 end

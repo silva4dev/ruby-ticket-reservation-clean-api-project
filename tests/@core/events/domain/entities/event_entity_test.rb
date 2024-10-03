@@ -16,7 +16,6 @@ class EventEntityTest < Minitest::Test
       date: DateTime.now,
       partner_id: Common::Domain::ValueObjects::Uuid.new
     )
-
     @sut.add_section(
       name: 'VIP Section',
       description: 'Exclusive access to the VIP area',
@@ -32,7 +31,7 @@ class EventEntityTest < Minitest::Test
     assert_equal 'A description of the test event', @sut.description
     assert_instance_of DateTime, @sut.date
     assert_equal 1, @sut.sections.count
-    assert_equal false, @sut.is_published
+    refute @sut.is_published
     assert_equal 100, @sut.total_spots
     assert_equal 0, @sut.total_spots_reserved
     assert_equal 100, @sut.sections.first.spots.size
@@ -45,15 +44,14 @@ class EventEntityTest < Minitest::Test
       total_spots: 25,
       price: 75.25
     )
-
     @sut.publish_all
 
-    assert_equal true, @sut.is_published
-    assert_equal true, @sut.sections.to_a.first.is_published
-    assert_equal true, @sut.sections.to_a.last.is_published
+    assert @sut.is_published
+    assert @sut.sections.to_a.first.is_published
+    assert @sut.sections.to_a.last.is_published
     @sut.sections.each do |section|
       section.spots.each do |spot|
-        assert_equal true, spot.is_published
+        assert spot.is_published
       end
     end
   end

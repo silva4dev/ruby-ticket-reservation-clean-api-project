@@ -11,8 +11,7 @@ class PartnerEntityTest < Minitest::Test
     @sut = Events::Domain::Entities::Partner.create({
       name: 'John Doe'
     })
-
-    @event = @sut.initEvent({
+    @event = @sut.init_event({
       name: 'Test Event',
       description: 'A description of the test event',
       date: DateTime.now
@@ -23,7 +22,7 @@ class PartnerEntityTest < Minitest::Test
     assert_instance_of Events::Domain::Entities::Partner, @sut
     refute_nil @sut.id
     assert_instance_of Common::Domain::ValueObjects::Uuid, @sut.id
-    assert_equal @sut.name, 'John Doe'
+    assert_equal 'John Doe', @sut.name
   end
 
   def test_create_new_event

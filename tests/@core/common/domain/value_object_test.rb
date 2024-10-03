@@ -13,9 +13,9 @@ class ValueObjectTest < Minitest::Test
     @value_hash1 = TestValueObject.new({ key: 'value' })
     @value_hash2 = TestValueObject.new({ key: 'value' })
     @value_hash3 = TestValueObject.new({ key: 'different_value' })
-    @value_array1 = TestValueObject.new(['element1', 'element2'])
-    @value_array2 = TestValueObject.new(['element1', 'element2'])
-    @value_array3 = TestValueObject.new(['element1', 'element3'])
+    @value_array1 = TestValueObject.new(%w[element1 element2])
+    @value_array2 = TestValueObject.new(%w[element1 element2])
+    @value_array3 = TestValueObject.new(%w[element1 element3])
   end
 
   def test_equals_with_same_value

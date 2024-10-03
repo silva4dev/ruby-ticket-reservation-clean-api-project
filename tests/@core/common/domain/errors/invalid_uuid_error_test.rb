@@ -9,6 +9,7 @@ class InvalidUuidErrorTest < Minitest::Test
     error = Common::Domain::Errors::InvalidUuidError.new(invalid_value)
 
     expected_message = "Value #{invalid_value} must be a valid UUID"
+
     assert_equal expected_message, error.message
   end
 

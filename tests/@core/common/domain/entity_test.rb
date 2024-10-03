@@ -8,6 +8,7 @@ class EntityTest < Minitest::Test
     attr_reader :id
 
     def initialize(id)
+      super()
       @id = id
     end
 
@@ -41,11 +42,13 @@ class EntityTest < Minitest::Test
   def test_equals_with_no_id
     entity_no_id = TestEntity.new(nil)
     entity_another_no_id = TestEntity.new(nil)
+
     assert entity_no_id.equals(entity_another_no_id), 'Entities with nil IDs should be equal'
   end
 
   def test_to_hash
     expected_hash = { id: 1 }
+
     assert_equal expected_hash, @entity1.to_hash, 'to_hash should return a hash representation of the entity'
   end
 end

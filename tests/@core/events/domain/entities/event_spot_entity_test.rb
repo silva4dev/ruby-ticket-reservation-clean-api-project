@@ -12,7 +12,7 @@ class EventSpotEntityTest < Minitest::Test
     assert_instance_of Events::Domain::Entities::EventSpot, @sut
     refute_nil @sut.id
     assert_nil @sut.location
-    assert_equal false, @sut.is_reserved
-    assert_equal false, @sut.is_published
+    refute @sut.is_reserved
+    refute @sut.is_published
   end
 end

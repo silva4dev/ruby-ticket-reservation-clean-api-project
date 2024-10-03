@@ -9,6 +9,6 @@ class NameTest < Minitest::Test
   end
 
   def test_create_new_name_vo
-    assert_equal @sut.value, 'John Doe'
+    assert_equal 'John Doe', @sut.value
   end
 end

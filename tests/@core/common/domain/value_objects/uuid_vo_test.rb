@@ -9,6 +9,6 @@ class UuidTest < Minitest::Test
   end
 
   def test_create_new_uuid_vo
-    assert_equal @sut.value, '84df48d0-5c35-013d-d217-00155d5361ff'
+    assert_equal '84df48d0-5c35-013d-d217-00155d5361ff', @sut.value
   end
 end
