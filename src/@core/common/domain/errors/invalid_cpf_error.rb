@@ -3,11 +3,7 @@
 module Common
   module Domain
     module Errors
-      class InvalidCpfError < StandardError
-        def initialize(message)
-          super(message)
-        end
-      end
+      class InvalidCpfError < StandardError; end
     end
   end
 end

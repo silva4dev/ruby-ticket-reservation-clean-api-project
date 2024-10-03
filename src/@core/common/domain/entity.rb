@@ -16,8 +16,9 @@ module Common
       def equals(other)
         return false if other.nil?
         return false unless other.respond_to?(:id)
-        return false unless other.class == self.class
-        other.id.to_s == self.id.to_s
+        return false unless other.instance_of?(self.class)
+
+        other.id.to_s == id.to_s
       end
     end
   end

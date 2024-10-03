@@ -10,6 +10,7 @@ module Common
         attr_reader :value
 
         def initialize(value)
+          super(value)
           @value = value.to_s.gsub(/\D/, '')
           validate
         end
@@ -17,21 +18,15 @@ module Common
         private
 
         def validate
-          if @value.length != 11
-            raise Errors::InvalidCpfError.new("CPF must have 11 digits, but has #{@value.length} digits")
-          end
+          raise Errors::InvalidCpfError, "CPF must have 11 digits, but has #{@value.length} digits" if @value.length != 11
 
           all_digits_equals = @value =~ /^(\d)\1{10}$/
-          if all_digits_equals
-            raise Errors::InvalidCpfError.new('CPF must have at least two different digits')
-          end
+          raise Errors::InvalidCpfError, 'CPF must have at least two different digits' if all_digits_equals
 
           first_digit = calculate_digit(@value[0..8], 10)
           second_digit = calculate_digit(@value[0..9], 11)
 
-          if first_digit != @value[9].to_i || second_digit != @value[10].to_i
-            raise Errors::InvalidCpfError.new('CPF is invalid')
-          end
+          raise Errors::InvalidCpfError, 'CPF is invalid' if first_digit != @value[9].to_i || second_digit != @value[10].to_i
         end
 
         def calculate_digit(base_digits, weight)

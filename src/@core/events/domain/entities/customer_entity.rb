@@ -10,7 +10,7 @@ module Events
       class Customer < Common::Domain::AggregateRoot
         attr_reader :cpf, :name
 
-        def initialize(id: nil, cpf:, name:)
+        def initialize(cpf:, name:, id: nil)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @cpf = Common::Domain::ValueObjects::Cpf.new(cpf)

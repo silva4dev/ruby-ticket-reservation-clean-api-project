@@ -6,10 +6,6 @@ module Common
   module Domain
     module ValueObjects
       class Name < ValueObject
-        def initialize(value)
-          super(value)
-        end
-
         def is_valid
           value.length >= 3
         end
@@ -17,4 +13,3 @@ module Common
     end
   end
 end
-

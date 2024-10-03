@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-
 require_relative '../../../common/domain/aggregate_root'
 require_relative '../../../common/domain/value_objects/uuid_vo'
 require_relative '../entities/event_spot_entity'
@@ -12,7 +10,7 @@ module Events
       class EventSection < Common::Domain::AggregateRoot
         attr_reader :name, :description, :is_published, :total_spots, :total_spots_reserved, :price, :spots
 
-        def initialize(id: nil, name:, description: nil, is_published: false, total_spots:, total_spots_reserved:, price:, spots: Set.new)
+        def initialize(name:, total_spots:, total_spots_reserved:, price:, id: nil, description: nil, is_published: false, spots: Set.new)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
@@ -64,7 +62,7 @@ module Events
         end
 
         def publish_all
-          self.publish
+          publish
           @spots.each(&:publish)
         end
 

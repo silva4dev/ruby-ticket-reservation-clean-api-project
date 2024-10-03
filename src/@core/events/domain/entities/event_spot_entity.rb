@@ -9,7 +9,7 @@ module Events
       class EventSpot < Common::Domain::AggregateRoot
         attr_reader :location, :is_reserved, :is_published
 
-        def initialize(id: nil, location:, is_reserved:, is_published: false)
+        def initialize(location:, is_reserved:, id: nil, is_published: false)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @location = location || nil

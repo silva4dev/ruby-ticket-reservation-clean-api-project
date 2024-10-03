@@ -2,7 +2,7 @@
 
 require_relative '../../../common/domain/aggregate_root'
 require_relative '../../../common/domain/value_objects/uuid_vo'
-require_relative './event_entity'
+require_relative 'event_entity'
 
 module Events
   module Domain
@@ -10,7 +10,7 @@ module Events
       class Partner < Common::Domain::AggregateRoot
         attr_reader :name
 
-        def initialize(id: nil, name:)
+        def initialize(name:, id: nil)
           super()
           @id = id.is_a?(String) ? Common::Domain::ValueObjects::Uuid.new(id) : id || Common::Domain::ValueObjects::Uuid.new
           @name = name
@@ -22,12 +22,12 @@ module Events
           )
         end
 
-        def initEvent(command)
+        def init_event(command)
           Event.create({
             name: command[:name],
             description: command[:description],
             date: command[:date],
-            partner_id: @id,
+            partner_id: @id
           })
         end
 

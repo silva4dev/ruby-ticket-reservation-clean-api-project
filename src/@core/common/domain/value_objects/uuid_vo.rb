@@ -19,9 +19,7 @@ module Common
         private
 
         def validate
-          unless valid_uuid?(value)
-            raise Errors::InvalidUuidError.new(value)
-          end
+          raise Errors::InvalidUuidError, value unless valid_uuid?(value)
         end
 
         def valid_uuid?(uuid)

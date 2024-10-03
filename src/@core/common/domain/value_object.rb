@@ -25,9 +25,9 @@ module Common
         if !@value.is_a?(Hash) && !@value.is_a?(Array)
           @value.to_s
         else
-          @value.to_s == "[object Object]" ? @value.to_json : @value.to_s
+          @value.to_s == '[object Object]' ? @value.to_json : @value.to_s
         end
-      rescue
+      rescue StandardError
         @value.to_s
       end
 
@@ -36,7 +36,7 @@ module Common
       def deep_freeze(obj)
         case obj
         when Hash
-          obj.each { |key, value| deep_freeze(value) }
+          obj.each_value { |value| deep_freeze(value) }
         when Array
           obj.each { |element| deep_freeze(element) }
         end
@@ -46,9 +46,11 @@ module Common
       def deep_equal(value1, value2)
         if value1.is_a?(Hash) && value2.is_a?(Hash)
           return false unless value1.keys == value2.keys
+
           value1.all? { |key, val| deep_equal(val, value2[key]) }
         elsif value1.is_a?(Array) && value2.is_a?(Array)
           return false unless value1.size == value2.size
+
           value1.each_with_index.all? { |val, idx| deep_equal(val, value2[idx]) }
         else
           value1 == value2
