@@ -8,7 +8,7 @@ namespace :db do
     environment = ENV['ENVIRONMENT'] || 'development'
     config = ActiveRecord::Base.configurations.configs_for(env_name: environment).first
     ActiveRecord::Base.establish_connection(config.configuration_hash)
-    migrations_paths = './src/database/migrate'
+    migrations_paths = './src/database/migrations'
     ActiveRecord::Migration.verbose = true
     version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
     migration_context = ActiveRecord::MigrationContext.new(migrations_paths)
@@ -112,7 +112,7 @@ namespace :db do
       database_path = './src/database'
       Dir.mkdir(database_path) unless Dir.exist?(database_path)
 
-      migration_path = "#{database_path}/migrate"
+      migration_path = "#{database_path}/migrations"
       Dir.mkdir(migration_path) unless Dir.exist?(migration_path)
 
       migration_name = args[:name].tr(' ', '_')
