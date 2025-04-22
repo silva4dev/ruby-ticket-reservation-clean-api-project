@@ -12,6 +12,7 @@ ActiveRecord::Base.establish_connection(environment)
 
 logger = Logger.new(STDOUT)
 logger.formatter = proc do |severity, datetime, progname, msg|
-   "#{msg}\n"
+  "#{msg}\n"
 end
+
 ActiveRecord::Base.logger = logger
