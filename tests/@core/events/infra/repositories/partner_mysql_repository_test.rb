@@ -8,12 +8,6 @@ require_relative '../../../../../src/@core/events/domain/entities/partner_entity
 class PartnerMysqlRepositoryTest < Minitest::Test
   def setup
     DatabaseCleaner.start
-    @partner = Events::Domain::Entities::Partner.create({ name: 'John Doe' })
-    @partner_repository = Events::Infra::Repositories::PartnerMysqlRepository.new(
-      Events::Infra::Models::Partner
-    )
-    @partner_repository.add(@partner)
-    @sut = @partner_repository.find_by_id(@partner.id.value)
   end
 
   def teardown
@@ -21,6 +15,15 @@ class PartnerMysqlRepositoryTest < Minitest::Test
   end
 
   def test_create_new_partner
+    @partner = Events::Domain::Entities::Partner.create({ name: 'John Doe' })
+
+    @partner_repository = Events::Infra::Repositories::PartnerMysqlRepository.new(
+      Events::Infra::Models::Partner
+    )
+    @partner_repository.add(@partner)
+
+    @sut = @partner_repository.find_by_id(@partner.id.value)
+
     assert @sut.id.equals(@partner.id)
   end
 end
