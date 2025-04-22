@@ -2,6 +2,8 @@
 
 source 'https://rubygems.org'
 
+ruby '3.2.1'
+
 gem 'activerecord', '7.1.0'
 gem 'mysql2'
 gem 'rake'
