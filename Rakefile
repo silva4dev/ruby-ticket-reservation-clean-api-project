@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'src/config/active_record'
+require_relative 'src/database/connection'
 
 namespace :db do
   desc 'Migrate the database (options: VERSION=x).'
