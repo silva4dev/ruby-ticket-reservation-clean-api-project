@@ -1,5 +1,5 @@
 inherit_from:
-  - .rubocop_dev.yml
+  - .rubocop_development.yml
   - .rubocop_test.yml
 
 AllCops:
