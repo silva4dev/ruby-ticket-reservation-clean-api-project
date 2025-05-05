@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'rake/testtask'
+
 require_relative 'src/database/connection'
 
 namespace :db do
@@ -137,4 +139,10 @@ namespace :db do
       puts "Migration created: #{migration_filename}"
     end
   end
+end
+
+Rake::TestTask.new do |t|
+  t.libs << 'tests'
+  t.test_files = FileList['tests/**/*_test.rb']
+  t.warning = true
 end
