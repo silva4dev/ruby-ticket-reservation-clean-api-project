@@ -1,0 +1,9 @@
+# frozen_string_literal: true
+
+require 'dotenv'
+
+Dotenv.load!('.env.test')
+
+guard :minitest, all_on_start: true, test_folders: ['tests'] do
+  watch(%r{^tests/(.*)_test\.rb$})
+end
