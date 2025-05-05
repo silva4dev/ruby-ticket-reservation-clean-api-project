@@ -11,8 +11,11 @@ gem 'uuid'
 
 group :development, :test do
   gem 'database_cleaner-active_record'
+  gem 'dotenv'
   gem 'minitest'
   gem 'rubocop'
   gem 'rubocop-minitest'
   gem 'rubocop-performance'
+  gem 'guard'
+  gem 'guard-minitest'
 end
