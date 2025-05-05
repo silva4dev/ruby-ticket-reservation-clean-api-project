@@ -1,0 +1,9 @@
+AllCops:
+  Include:
+    - 'tests/**/*.rb'
+
+plugins:
+  - rubocop-minitest
+
+Minitest/MultipleAssertions:
+  Enabled: false
